@@ -18,8 +18,11 @@ class _EventScreenState extends State<EventScreen> {
 
   @override
   void initState() {
+    DeviceCalendarPlugin().requestPermissions().then((value) {});
+
     _getSharedPreferences();
     ApiProvider().eventsRequest().then((value) {
+      if(mounted)
       setState(() {
         data = value.data;
       });
@@ -145,6 +148,7 @@ class _EventScreenState extends State<EventScreen> {
                                                         "Event Added to Calendar successfully");
                                                     _addEventToSharedPreferences(
                                                         data, index);
+                                                    if(mounted)
                                                     setState(() {
                                                       data = data;
                                                     });

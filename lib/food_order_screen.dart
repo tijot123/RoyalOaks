@@ -33,11 +33,13 @@ class _FoodOrderScreenState extends State<FoodOrderScreen> {
           body: Stack(children: [
             WebView(
               onPageFinished: (_) {
+                if(mounted)
                 setState(() {
                   _isLoading = false;
                 });
               },
               onPageStarted: (_) {
+                if(mounted)
                 setState(() {
                   _isLoading = true;
                 });

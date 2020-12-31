@@ -62,6 +62,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ImageConfiguration(devicePixelRatio: 2.5, size: Size(8, 8));
     BitmapDescriptor.fromAssetImage(configuration, 'assets/img/marker.png')
         .then((value) {
+      if(mounted)
       setState(() {
         pinLocationIcon = value;
       });
@@ -124,6 +125,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       zoomControlsEnabled: false,
                       onMapCreated: (GoogleMapController controller) {
                         _controller.complete(controller);
+                        if(mounted)
                         setState(() {
                           _markers.add(Marker(
                               draggable: false,
@@ -237,6 +239,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       borderColor: Colors.lightGreenAccent,
                       onValueChanged: (value) {
                         debugPrint(value.toString());
+                        if(mounted)
                         setState(() {
                           selectedIndex = value;
                           if (selectedIndex == 0) {

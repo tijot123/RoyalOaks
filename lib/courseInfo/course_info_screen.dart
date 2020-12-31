@@ -68,6 +68,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen> {
 
   _loadHtmlFromAssets() async {
     String fileText = await rootBundle.loadString('assets/course_info.html');
+    if(mounted)
     setState(() {
       _htmlContent = fileText;
     });
@@ -75,6 +76,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen> {
 
   void _getVersionData() {
     PackageInfo.fromPlatform().then((value) {
+      if(mounted)
       setState(() {
         _version = "Version ${value.version}";
       });

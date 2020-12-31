@@ -46,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: size.width * 0.5,
                       ),
                       Container(
+                        width: size.width/1.2,
                         decoration: BoxDecoration(color: Colors.black),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
@@ -68,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                       Container(
+                        width: size.width/1.2,
                         decoration: BoxDecoration(color: Colors.black),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
@@ -90,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                       Container(
-                        width: size.width,
+                        width: size.width/1.2,
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40.0)),

@@ -20,6 +20,7 @@ class _TeeTimesScreenState extends State<TeeTimesScreen> {
   @override
   void initState() {
     SharedPreferences.getInstance().then((value) {
+      if(mounted)
       setState(() {
         memberId = value.getString(USER_ID);
       });
@@ -37,18 +38,20 @@ class _TeeTimesScreenState extends State<TeeTimesScreen> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
-            title: Text(""),
+            title: Text("Tee Times"),
           ),
           body: Stack(
             children: [
               memberId != ""
                   ? WebView(
                       onPageFinished: (_) {
+                        if(mounted)
                         setState(() {
                           _isLoading = false;
                         });
                       },
                       onPageStarted: (_) {
+                        if(mounted)
                         setState(() {
                           _isLoading = true;
                         });

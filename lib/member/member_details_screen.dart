@@ -21,6 +21,7 @@ class _MemberDetailsScreenState extends State<MemberDetailsScreen> {
   @override
   void initState() {
     ApiProvider().requestMemberDetails(widget.data.userId).then((value) {
+      if(mounted)
       setState(() {
         _memberDetailsModel = value;
       });

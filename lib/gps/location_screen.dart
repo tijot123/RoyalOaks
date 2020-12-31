@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api_provider.dart';
 import 'package:flutter_app/common/common_bg_inner_container.dart';
+import 'package:flutter_app/common/loading_dialog.dart';
 import 'package:flutter_app/helper/map_utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -33,11 +34,11 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   void initState() {
-    setState(() {
-      _mapType = MapType.satellite;
-    });
+    if (mounted)
+      setState(() {
+        _mapType = MapType.satellite;
+      });
     _setPolygon(Colors.blueAccent, MapUtils.mainCoordinates);
-
     ApiProvider().coordinatesRequest().then((value) {
       var coordinates = value.data.coordinates;
       for (int i = 0; i < coordinates.length; i++) {
@@ -77,12 +78,13 @@ class _LocationScreenState extends State<LocationScreen> {
                             : Icons.satellite,
                       ),
                       onPressed: () {
-                        setState(() {
-                          if (_mapType == MapType.satellite)
-                            _mapType = MapType.normal;
-                          else
-                            _mapType = MapType.satellite;
-                        });
+                        if (mounted)
+                          setState(() {
+                            if (_mapType == MapType.satellite)
+                              _mapType = MapType.normal;
+                            else
+                              _mapType = MapType.satellite;
+                          });
                       }),
                 ),
                 Flexible(
@@ -128,19 +130,20 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void _setPolygon(Color color, List<LatLng> points) {
-    setState(() {
-      _polygonIdCounter++;
-      String polygonIdVal = 'polygon_id_$_polygonIdCounter';
-      debugPrint(polygonIdVal);
-      _polygons.add(Polygon(
-        polygonId: PolygonId(polygonIdVal),
-        points: points,
-        geodesic: true,
-        strokeWidth: 2,
-        fillColor: Colors.transparent,
-        strokeColor: color,
-      ));
-    });
+    if (mounted)
+      setState(() {
+        _polygonIdCounter++;
+        String polygonIdVal = 'polygon_id_$_polygonIdCounter';
+        debugPrint(polygonIdVal);
+        _polygons.add(Polygon(
+          polygonId: PolygonId(polygonIdVal),
+          points: points,
+          geodesic: true,
+          strokeWidth: 2,
+          fillColor: Colors.transparent,
+          strokeColor: color,
+        ));
+      });
   }
 
   @override

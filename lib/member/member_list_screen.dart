@@ -23,11 +23,13 @@ class _MemberListScreenState extends State<MemberListScreen> {
   }
 
   _fetchMemberList() {
+    if(mounted)
     setState(() {
       _isMemberListEmpty = true;
     });
     ApiProvider().membersRequest().then((value) {
       if (value.status == 200) {
+        if(mounted)
         setState(() {
           data = value.data;
           tempData = value.data;
@@ -92,6 +94,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
                         data.add(tempData[j]);
                       }
                     }
+                    if(mounted)
                     setState(() {
                       data = data;
                     });
