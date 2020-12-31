@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "422864819029",
+    "project_id": "royaloaks-67356",
+    "storage_bucket": "royaloaks-67356.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422864819029:android:28464babfddcdd3564d5dc",
+        "android_client_info": {
+          "package_name": "com.app.royal_oaks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422864819029-sttccmkn3ulnvqod1mdo9li4sudtq5ai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClww6mkuzbWcHRCMs8CAzDwSaec3RQ0cc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422864819029-sttccmkn3ulnvqod1mdo9li4sudtq5ai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422864819029:android:b30c78fdca62d9c064d5dc",
+        "android_client_info": {
+          "package_name": "net.pacetracker.rocc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422864819029-sttccmkn3ulnvqod1mdo9li4sudtq5ai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClww6mkuzbWcHRCMs8CAzDwSaec3RQ0cc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422864819029-sttccmkn3ulnvqod1mdo9li4sudtq5ai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
