@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/common/common_bg_inner_container.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -50,13 +51,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Html(
-                    onLinkTap: (url) {
-                      _launchWebUrl(url);
-                    },
-                    data: _htmlContent,
-                    defaultTextStyle:
-                        TextStyle(color: Colors.white, fontSize: 16),
-                  ),
+                      onLinkTap: (url) {
+                        _launchWebUrl(url);
+                      },
+                      data: _htmlContent,
+                      style: {
+                        "div": Style(color: Colors.white),
+                      }),
                 )
               ],
             ),
@@ -68,18 +69,18 @@ class _CourseInfoScreenState extends State<CourseInfoScreen> {
 
   _loadHtmlFromAssets() async {
     String fileText = await rootBundle.loadString('assets/course_info.html');
-    if(mounted)
-    setState(() {
-      _htmlContent = fileText;
-    });
+    if (mounted)
+      setState(() {
+        _htmlContent = fileText;
+      });
   }
 
   void _getVersionData() {
     PackageInfo.fromPlatform().then((value) {
-      if(mounted)
-      setState(() {
-        _version = "Version ${value.version}";
-      });
+      if (mounted)
+        setState(() {
+          _version = "Version ${value.version}";
+        });
     });
   }
 

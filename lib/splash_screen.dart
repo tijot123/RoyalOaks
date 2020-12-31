@@ -16,13 +16,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     PushNotificationsManager().init();
+
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     isUserLoggedIn().then((status) {
       if (status)
         moveToHomePage();
       else
         moveToLoginPage();
     });
-    super.initState();
   }
 
   @override
