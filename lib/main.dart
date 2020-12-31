@@ -1,15 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'splash_screen.dart';
 
 void main() {
-
-/*  if(Platform.isAndroid)
-    // ignore: invalid_use_of_visible_for_testing_member
-  SharedPreferences.setMockInitialValues({});*/
   runApp(MyApp());
 }
 
