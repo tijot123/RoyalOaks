@@ -118,7 +118,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       myLocationButtonEnabled: false,
                       trafficEnabled: true,
                       buildingsEnabled: true,
-                      indoorViewEnabled: true,
                       markers: _markers,
                       mapType: MapType.terrain,
                       initialCameraPosition: _initialPosition,

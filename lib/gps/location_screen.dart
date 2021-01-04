@@ -101,6 +101,7 @@ class _LocationScreenState extends State<LocationScreen> {
             initialCameraPosition: _initialPosition,
             onMapCreated: _onMapCreated,
             myLocationButtonEnabled: false,
+            zoomGesturesEnabled: false,
             polygons: _polygons,
             onCameraMove: (CameraPosition position) async {
               var targetLatLng = position.target;
