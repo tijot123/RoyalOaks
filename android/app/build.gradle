@@ -43,8 +43,8 @@ android {
         applicationId "com.app.royal_oaks"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 1
+        versionName "2.0"
         multiDexEnabled true
     }
     signingConfigs {
