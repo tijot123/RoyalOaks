@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
                           child: TextField(
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.text,
                             controller: _membershipController,
                             textInputAction: TextInputAction.next,
                             onEditingComplete: () => node.nextFocus(),
