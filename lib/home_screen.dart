@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/api/api_provider.dart';
 import 'package:flutter_app/common/common_snackbar.dart';
 import 'package:flutter_app/common/loading_dialog.dart';
+import 'package:flutter_app/helper/map_utils.dart';
 import 'package:flutter_app/list_screen.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:package_info/package_info.dart';
 
@@ -44,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
   LocationData _locationData;
   var _serviceEnabled = false;
   var _version = "";
-
   final _homeKey = GlobalKey<State>();
+  StreamSubscription<LocationData> streamSubscription;
 
   @override
   void initState() {
@@ -53,17 +57,29 @@ class _HomeScreenState extends State<HomeScreen> {
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     _checkLocationPermission();
     _getVersionData();
+    if (!widget.isGuest) {
+      _activateUserSession();
+      streamSubscription = _location.onLocationChanged.listen((event) {
+        var latitude = event.latitude;
+        var longitude = event.longitude;
+        var validArea = MapUtils.checkIfValidArea(
+            LatLng(latitude, longitude), MapUtils.mainCoordinates);
+        if (!validArea) {
+          _deActivateUserSession();
+        } else
+          _activateUserSession();
+      });
+    }
 
-    _location.onLocationChanged.listen((event) {});
     super.initState();
   }
 
   void _getVersionData() {
     PackageInfo.fromPlatform().then((value) {
-      if(mounted)
-      setState(() {
-        _version = "Version ${value.version}";
-      });
+      if (mounted)
+        setState(() {
+          _version = "Version ${value.version}";
+        });
     });
   }
 
@@ -79,8 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               onPressed: () {
                 SharedPreferences.getInstance().then((value) {
+                  if (!widget.isGuest) _deActivateUserSession();
                   value.setBool(USER_LOGGED_IN, false);
                   value.setString(USER_ID, "");
+                  value.setString(SESSION_ID, "");
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (BuildContext context) => LoginScreen()));
                 });
@@ -385,5 +403,60 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           );
         });
+  }
+
+  void showLocationUpdatesAlert({String message}) async {
+    var instance = await SharedPreferences.getInstance();
+    instance.setBool(LOC_POP, true);
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: Text("Royal Oaks"),
+            content: Text(
+              '$message',
+              style: TextStyle(color: Colors.black),
+            ),
+            actions: [
+              FlatButton(
+                textColor: Theme.of(context).primaryColor,
+                onPressed: () {
+                  Navigator.pop(ctx);
+                  _checkLocationPermission();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        });
+  }
+
+  void _activateUserSession() {
+    SharedPreferences.getInstance().then((value) {
+      var isShown = value.getBool(LOC_POP);
+      if (isShown == null || isShown == false) {
+        showLocationUpdatesAlert(
+            message:
+                "The Royal Oaks app needs to track your location when you are not using the app. The location is only transmitted to the club while you are on club property.");
+      }
+      _checkLocationPermission();
+    });
+
+    ApiProvider().activateUserSession().then((session) {
+      SharedPreferences.getInstance().then((value) {
+        value.setString(SESSION_ID, session.data[0].sessionId);
+      });
+    });
+  }
+
+  void _deActivateUserSession() {
+    ApiProvider().deActivateUserSession().then((value) {});
+  }
+
+  @override
+  void dispose() {
+    if (!widget.isGuest) streamSubscription.cancel();
+    super.dispose();
   }
 }

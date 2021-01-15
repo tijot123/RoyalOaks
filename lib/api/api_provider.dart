@@ -9,6 +9,7 @@ import 'package:flutter_app/model/food_order_model.dart';
 import 'package:flutter_app/model/login_model.dart';
 import 'package:flutter_app/model/member_details_model.dart';
 import 'package:flutter_app/model/member_model.dart';
+import 'package:flutter_app/model/session_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -92,9 +93,40 @@ class ApiProvider {
     final response = await http.get('$baseUrl?f=Order_Food_Url');
     if (response.statusCode == 200) {
       debugPrint(response.body.replaceRange(0, 3, ""));
-      return OrderFoodModel.fromJson(jsonDecode(response.body.replaceRange(0, 3, "")));
+      return OrderFoodModel.fromJson(
+          jsonDecode(response.body.replaceRange(0, 3, "")));
     } else {
       throw Exception('Food Url Fetching Failed');
     }
   }
+
+  Future<SessionModel> activateUserSession() async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+    debugPrint(
+        '$baseUrl?f=Activate_Session&user=${sharedPreferences.getString(USER_ID)}');
+    final response = await http.get(
+        '$baseUrl?f=Activate_Session&user=${sharedPreferences.getString(USER_ID)}');
+    if (response.statusCode == 200) {
+      debugPrint(response.body.replaceRange(0, 3, ""));
+      return SessionModel.fromJson(
+          jsonDecode(response.body.replaceRange(0, 3, "")));
+    } else {
+      throw Exception('Activating User Session Failed');
+    }
+  }
+  Future<SessionModel> deActivateUserSession() async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+    debugPrint(
+        '$baseUrl?f=Deactivate_Session&sid=${sharedPreferences.getString(SESSION_ID)}');
+    final response = await http.get(
+        '$baseUrl?f=Deactivate_Session&sid=${sharedPreferences.getString(SESSION_ID)}');
+    if (response.statusCode == 200) {
+      debugPrint(response.body.replaceRange(0, 3, ""));
+      return SessionModel.fromJson(
+          jsonDecode(response.body.replaceRange(0, 3, "")));
+    } else {
+      throw Exception('DeActivating User Session Failed');
+    }
+  }
+
 }
