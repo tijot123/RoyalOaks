@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   var sharedPreferences =
                                       await SharedPreferences.getInstance();
                                   sharedPreferences.setString(
-                                      USER_ID, loginModel.data.userId);
+                                      USER_ID, loginModel.data.username);
                                   sharedPreferences.setBool(
                                       USER_LOGGED_IN, true);
                                   Navigator.of(context).pushReplacement(
