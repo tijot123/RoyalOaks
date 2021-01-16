@@ -58,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _checkLocationPermission();
     _getVersionData();
     if (!widget.isGuest) {
-      _activateUserSession();
       streamSubscription = _location.onLocationChanged.listen((event) {
         var latitude = event.latitude;
         var longitude = event.longitude;
@@ -67,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (!validArea) {
           _deActivateUserSession();
         } else
-          _activateUserSession();
+          _activateUserSession(latitude, longitude);
       });
     }
 
@@ -379,6 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (_permissionStatus != PermissionStatus.granted) return;
     }
     _locationData = await _location.getLocation();
+    _activateUserSession(_locationData.latitude, _locationData.longitude);
     debugPrint(_locationData.toString());
   }
 
@@ -405,47 +405,16 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 
-  void showLocationUpdatesAlert({String message}) async {
-    var instance = await SharedPreferences.getInstance();
-    instance.setBool(LOC_POP, true);
-    showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            backgroundColor: Colors.white,
-            title: Text("Royal Oaks"),
-            content: Text(
-              '$message',
-              style: TextStyle(color: Colors.black),
-            ),
-            actions: [
-              FlatButton(
-                textColor: Theme.of(context).primaryColor,
-                onPressed: () {
-                  Navigator.pop(ctx);
-                  _checkLocationPermission();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        });
-  }
-
-  void _activateUserSession() {
-    SharedPreferences.getInstance().then((value) {
-      var isShown = value.getBool(LOC_POP);
-      if (isShown == null || isShown == false) {
-        showLocationUpdatesAlert(
-            message:
-                "The Royal Oaks app needs to track your location when you are not using the app. The location is only transmitted to the club while you are on club property.");
-      }
-      _checkLocationPermission();
-    });
-
+  void _activateUserSession(double latitude, double longitude) {
+    _checkLocationPermission();
     ApiProvider().activateUserSession().then((session) {
       SharedPreferences.getInstance().then((value) {
         value.setString(SESSION_ID, session.data[0].sessionId);
+        ApiProvider().updateLocationToServer(latitude, longitude).then((value) {
+          ApiProvider()
+              .updateCurrentHoleToServer(latitude, longitude)
+              .then((value) {});
+        });
       });
     });
   }

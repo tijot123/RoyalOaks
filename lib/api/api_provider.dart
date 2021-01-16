@@ -114,6 +114,7 @@ class ApiProvider {
       throw Exception('Activating User Session Failed');
     }
   }
+
   Future<SessionModel> deActivateUserSession() async {
     var sharedPreferences = await SharedPreferences.getInstance();
     debugPrint(
@@ -129,4 +130,45 @@ class ApiProvider {
     }
   }
 
+  Future<dynamic> updateFcmTokenToServer() async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+    debugPrint(
+        '$baseUrl?f=Device_Token&user_id=${sharedPreferences.getString(UID)}&device_type=A&device_token=${sharedPreferences.getString(FCM_TOKEN)}');
+    final response = await http.get(
+        '$baseUrl?f=Device_Token&user_id=${sharedPreferences.getString(UID)}&device_type=A&device_token=${sharedPreferences.getString(FCM_TOKEN)}');
+    if (response.statusCode == 200) {
+      debugPrint(response.body.replaceRange(0, 3, ""));
+      return response.body.replaceRange(0, 3, "");
+    } else {
+      throw Exception('updateFcmTokenToServer Failed');
+    }
+  }
+
+  Future<dynamic> updateLocationToServer(latitude,longitude) async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+    debugPrint(
+        '$baseUrl?f=Update_Latlong&sid=${sharedPreferences.getString(SESSION_ID)}&usr=${sharedPreferences.getString(USER_ID)}&lat=$latitude&long=$longitude');
+    final response = await http.get(
+        '$baseUrl?f=Update_Latlong&sid=${sharedPreferences.getString(SESSION_ID)}&usr=${sharedPreferences.getString(USER_ID)}&lat=$latitude&long=$longitude');
+    if (response.statusCode == 200) {
+      debugPrint(response.body.replaceRange(0, 3, ""));
+      return response.body.replaceRange(0, 3, "");
+    } else {
+      throw Exception('updateLocationToServer Failed');
+    }
+  }
+
+  Future<dynamic> updateCurrentHoleToServer(latitude,longitude) async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+    debugPrint(
+        '$baseUrl?f=Update_Hole_No&sid=${sharedPreferences.getString(SESSION_ID)}&usr=${sharedPreferences.getString(USER_ID)}&hole=1&lat=$latitude&long=$longitude');
+    final response = await http.get(
+        '$baseUrl?f=Update_Hole_No&sid=${sharedPreferences.getString(SESSION_ID)}&usr=${sharedPreferences.getString(USER_ID)}&hole=1&lat=$latitude&long=$longitude');
+    if (response.statusCode == 200) {
+      debugPrint(response.body.replaceRange(0, 3, ""));
+      return response.body.replaceRange(0, 3, "");
+    } else {
+      throw Exception('updateLocationToServer Failed');
+    }
+  }
 }

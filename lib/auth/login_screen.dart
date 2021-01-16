@@ -23,6 +23,19 @@ class _LoginScreenState extends State<LoginScreen> {
   var _loginKey = GlobalKey<State>();
 
   @override
+  void initState() {
+    SharedPreferences.getInstance().then((value) {
+      var isShown = value.getBool(LOC_POP);
+      if (isShown == null || isShown == false) {
+        showLocationUpdatesAlert(
+            message:
+                "The Royal Oaks app needs to track your location when you are not using the app. The location is only transmitted to the club while you are on club property.");
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final node = FocusScope.of(context);
@@ -46,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: size.width * 0.5,
                       ),
                       Container(
-                        width: size.width/1.2,
+                        width: size.width / 1.2,
                         decoration: BoxDecoration(color: Colors.black),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
@@ -69,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                       Container(
-                        width: size.width/1.2,
+                        width: size.width / 1.2,
                         decoration: BoxDecoration(color: Colors.black),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
@@ -92,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                       Container(
-                        width: size.width/1.2,
+                        width: size.width / 1.2,
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40.0)),
@@ -132,6 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       await SharedPreferences.getInstance();
                                   sharedPreferences.setString(
                                       USER_ID, loginModel.data.username);
+                                  sharedPreferences.setString(
+                                      UID, loginModel.data.userId);
                                   sharedPreferences.setBool(
                                       USER_LOGGED_IN, true);
                                   Navigator.of(context).pushReplacement(
@@ -191,5 +206,31 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void showLocationUpdatesAlert({String message}) async {
+    var instance = await SharedPreferences.getInstance();
+    instance.setBool(LOC_POP, true);
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: Text("Royal Oaks"),
+            content: Text(
+              '$message',
+              style: TextStyle(color: Colors.black),
+            ),
+            actions: [
+              FlatButton(
+                textColor: Theme.of(context).primaryColor,
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        });
   }
 }

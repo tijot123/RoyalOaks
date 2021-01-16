@@ -1,5 +1,5 @@
-
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_app/api/api_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
@@ -10,7 +10,7 @@ class PushNotificationsManager {
   factory PushNotificationsManager() => _instance;
 
   static final PushNotificationsManager _instance =
-  PushNotificationsManager._();
+      PushNotificationsManager._();
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   bool _initialized = false;
@@ -39,7 +39,13 @@ class PushNotificationsManager {
       String token = await _firebaseMessaging.getToken();
       prefs.setString(FCM_TOKEN, token);
       print("FirebaseMessaging token: $token");
-
+      ApiProvider().updateFcmTokenToServer().then((value) {});
+      _firebaseMessaging.onTokenRefresh.listen((event) {
+        String token = event;
+        prefs.setString(FCM_TOKEN, token);
+        print("FirebaseMessaging onTokenRefresh: $token");
+        ApiProvider().updateFcmTokenToServer().then((value) {});
+      });
       _initialized = true;
     }
   }
@@ -49,6 +55,4 @@ class PushNotificationsManager {
   void _navigateToItemDetail(Map<String, dynamic> message) {}
 }
 
-Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
-
-}
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {}
