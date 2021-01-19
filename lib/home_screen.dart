@@ -70,6 +70,16 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
 
+    SharedPreferences.getInstance().then((value) {
+      var isShown = value.getBool(LOC_POP);
+      if (isShown == null || isShown == false) {
+        showLocationUpdatesAlert(
+            message:
+                "The Royal Oaks app needs to track your location when you are not using the app. The location is only transmitted to the club while you are on club property.",
+            context: context);
+      }
+    });
+
     super.initState();
   }
 
@@ -378,6 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (_permissionStatus != PermissionStatus.granted) return;
     }
     _locationData = await _location.getLocation();
+    if(!widget.isGuest)
     _activateUserSession(_locationData.latitude, _locationData.longitude);
     debugPrint(_locationData.toString());
   }

@@ -29,7 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
       if (isShown == null || isShown == false) {
         showLocationUpdatesAlert(
             message:
-                "The Royal Oaks app needs to track your location when you are not using the app. The location is only transmitted to the club while you are on club property.");
+                "The Royal Oaks app needs to track your location when you are not using the app. The location is only transmitted to the club while you are on club property.",
+            context: context);
       }
     });
     super.initState();
@@ -206,31 +207,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void showLocationUpdatesAlert({String message}) async {
-    var instance = await SharedPreferences.getInstance();
-    instance.setBool(LOC_POP, true);
-    showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            backgroundColor: Colors.white,
-            title: Text("Royal Oaks"),
-            content: Text(
-              '$message',
-              style: TextStyle(color: Colors.black),
-            ),
-            actions: [
-              FlatButton(
-                textColor: Theme.of(context).primaryColor,
-                onPressed: () {
-                  Navigator.pop(ctx);
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        });
   }
 }
