@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>422864819029-geks8ebfqn3odatamkt3mfkq7tjpgf31.apps.googleusercontent.com</string>
+	<string>422864819029-6all4koqvac0m4qs5n1c98flfjsqk3pc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.422864819029-geks8ebfqn3odatamkt3mfkq7tjpgf31</string>
+	<string>com.googleusercontent.apps.422864819029-6all4koqvac0m4qs5n1c98flfjsqk3pc</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC_pTun6iJy3wpilKSuQ4wCCJOQl5eO5DY</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.app.royalOaks</string>
+	<string>net.pacetracker.rocc</string>
 	<key>PROJECT_ID</key>
 	<string>royaloaks-67356</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:422864819029:ios:d280dd422e72c77764d5dc</string>
+	<string>1:422864819029:ios:88afe3c079e076ce64d5dc</string>
 </dict>
 </plist>

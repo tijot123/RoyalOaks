@@ -16,7 +16,10 @@ void showLocationUpdatesAlert({String message, BuildContext context}) async {
       builder: (ctx) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          title: Text("Royal Oaks",style: TextStyle(color: Colors.black),),
+          title: Text(
+            "Royal Oaks",
+            style: TextStyle(color: Colors.black),
+          ),
           content: Text(
             '$message',
             style: TextStyle(color: Colors.black),

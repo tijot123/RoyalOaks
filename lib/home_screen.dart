@@ -61,12 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       streamSubscription = _location.onLocationChanged.listen((event) {
         var latitude = event.latitude;
         var longitude = event.longitude;
-        var validArea = MapUtils.checkIfValidArea(
-            LatLng(latitude, longitude), MapUtils.mainCoordinates);
-        if (!validArea) {
-          _deActivateUserSession();
-        } else
-          _activateUserSession(latitude, longitude);
+        checkIsValidArea(latitude, longitude);
       });
     }
 
@@ -388,8 +383,8 @@ class _HomeScreenState extends State<HomeScreen> {
       if (_permissionStatus != PermissionStatus.granted) return;
     }
     _locationData = await _location.getLocation();
-    if(!widget.isGuest)
-    _activateUserSession(_locationData.latitude, _locationData.longitude);
+    if (!widget.isGuest)
+      checkIsValidArea(_locationData.latitude, _locationData.longitude);
     debugPrint(_locationData.toString());
   }
 
@@ -438,5 +433,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     if (!widget.isGuest) streamSubscription.cancel();
     super.dispose();
+  }
+
+  void checkIsValidArea(double latitude, double longitude) {
+    var validArea = MapUtils.checkIfValidArea(
+        LatLng(latitude, longitude), MapUtils.mainCoordinates);
+    if (validArea) _activateUserSession(latitude, longitude);
   }
 }
