@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>422864819029-6all4koqvac0m4qs5n1c98flfjsqk3pc.apps.googleusercontent.com</string>
+	<string>1022057488802-srg0bk5c4n3kp00rbs77vf3n69ahpdme.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.422864819029-6all4koqvac0m4qs5n1c98flfjsqk3pc</string>
+	<string>com.googleusercontent.apps.1022057488802-srg0bk5c4n3kp00rbs77vf3n69ahpdme</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC_pTun6iJy3wpilKSuQ4wCCJOQl5eO5DY</string>
+	<string>AIzaSyBe_rsqNCTue6Wg2w4uns5qGxOv99ZbC7s</string>
 	<key>GCM_SENDER_ID</key>
-	<string>422864819029</string>
+	<string>1022057488802</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>net.pacetracker.rocc</string>
 	<key>PROJECT_ID</key>
-	<string>royaloaks-67356</string>
+	<string>royal-oaks-6cc67</string>
 	<key>STORAGE_BUCKET</key>
-	<string>royaloaks-67356.appspot.com</string>
+	<string>royal-oaks-6cc67.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:422864819029:ios:88afe3c079e076ce64d5dc</string>
+	<string>1:1022057488802:ios:485cd5a5cfea4f4c6212fb</string>
+	<key>DATABASE_URL</key>
+	<string>https://royal-oaks-6cc67.firebaseio.com</string>
 </dict>
 </plist>
