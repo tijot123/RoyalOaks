@@ -33,6 +33,11 @@
 	<string>Your location needs to be fetched whenever you are inside Royal Oaks Club</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is required for finding where you are currently</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

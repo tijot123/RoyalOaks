@@ -59,14 +59,21 @@ class PushNotificationsManager {
           ? message["data"]["message"]
           : message["notification"]["body"];
     } else {
-      title = message["notification"]["title"];
-      msg = message["notification"]["body"];
+      if(Platform.isIOS){
+        title = message["aps"]["alert"]["title"];
+        msg = message["aps"]["alert"]["body"];
+      }else {
+        title = message["notification"]["title"];
+        msg = message["notification"]["body"];
+      }
     }
     var android = AndroidNotificationDetails('id', 'channel ', 'description',
         priority: Priority.max,
         importance: Importance.max,
         icon: 'mipmap/ic_launcher');
-    var iOS = IOSNotificationDetails();
+    var iOS = IOSNotificationDetails(
+      presentAlert: true,presentBadge: true,sound: 'default',presentSound: true
+    );
     var platform = new NotificationDetails(android: android, iOS: iOS);
     await flutterLocalNotificationsPlugin.show(0, title, msg, platform);
   }
