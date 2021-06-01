@@ -21,6 +21,7 @@ import 'event/event_screen.dart';
 import 'food_order_screen.dart';
 import 'gps/location_screen.dart';
 import 'helper/constants.dart';
+import 'helper/fcm.dart';
 import 'member/member_list_screen.dart';
 import 'teetimes/tee_times_screen.dart';
 import 'yard/yard_guide_screen.dart';
@@ -58,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _checkLocationPermission();
     _getVersionData();
     if (!widget.isGuest) {
+      PushNotificationsManager().init();
       streamSubscription = _location.onLocationChanged.listen((event) {
         var latitude = event.latitude;
         var longitude = event.longitude;

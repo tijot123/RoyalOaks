@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'auth/login_screen.dart';
 import 'common/common_bg_container.dart';
 import 'helper/constants.dart';
-import 'helper/fcm.dart';
 import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,13 +12,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    PushNotificationsManager().init();
-
-    super.initState();
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
