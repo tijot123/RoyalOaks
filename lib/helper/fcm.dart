@@ -59,10 +59,10 @@ class PushNotificationsManager {
           ? message["data"]["message"]
           : message["notification"]["body"];
     } else {
-      if(Platform.isIOS){
+      if (Platform.isIOS) {
         title = message["aps"]["alert"]["title"];
         msg = message["aps"]["alert"]["body"];
-      }else {
+      } else {
         title = message["notification"]["title"];
         msg = message["notification"]["body"];
       }
@@ -72,8 +72,10 @@ class PushNotificationsManager {
         importance: Importance.max,
         icon: 'mipmap/ic_launcher');
     var iOS = IOSNotificationDetails(
-      presentAlert: true,presentBadge: true,sound: 'default',presentSound: true
-    );
+        presentAlert: true,
+        presentBadge: true,
+        sound: 'default',
+        presentSound: true);
     var platform = new NotificationDetails(android: android, iOS: iOS);
     await flutterLocalNotificationsPlugin.show(0, title, msg, platform);
   }
@@ -81,4 +83,7 @@ class PushNotificationsManager {
   void _navigateToItemDetail(Map<String, dynamic> message) {}
 }
 
-Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {}
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  print("myBackgroundMessageHandler: $message");
+  return null;
+}
