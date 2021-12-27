@@ -111,6 +111,7 @@ PODS:
   - Protobuf (3.14.0)
   - shared_preferences (0.0.1):
     - Flutter
+  - Siren (4.2.2)
   - url_launcher (0.0.1):
     - Flutter
   - video_player (0.0.1):
@@ -131,6 +132,7 @@ DEPENDENCIES:
   - location (from `.symlinks/plugins/location/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - Siren (from `https://github.com/ArtSabintsev/Siren.git`, branch `swift4.2`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
@@ -174,6 +176,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  Siren:
+    :branch: swift4.2
+    :git: https://github.com/ArtSabintsev/Siren.git
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
   video_player:
@@ -182,6 +187,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock/ios"
   webview_flutter:
     :path: ".symlinks/plugins/webview_flutter/ios"
+
+CHECKOUT OPTIONS:
+  Siren:
+    :commit: a3c7cfa26d686524bdb7cf0592310a836e53a97c
+    :git: https://github.com/ArtSabintsev/Siren.git
 
 SPEC CHECKSUMS:
   device_calendar: 23b28a5f1ab3bf77e34542fb1167e1b8b29a98f5
@@ -208,11 +218,12 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: 0cde852566359049847168e51bd1c690e0f70056
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  Siren: b636a49628049cb19af6fc28ac344cf36f2186f8
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   wakelock: bfc7955c418d0db797614075aabbc58a39ab5107
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: e4cfa29d1fa6995cd7bf4034815daf5555425a11
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.2
