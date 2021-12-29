@@ -43,8 +43,8 @@ android {
         applicationId "com.app.royal_oaks"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 6
-        versionName "2.0"
+        versionCode 7
+        versionName "2.1"
         multiDexEnabled true
         resConfigs "en"
     }
