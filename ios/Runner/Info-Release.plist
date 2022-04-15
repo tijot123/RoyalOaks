@@ -30,9 +30,9 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>Need to access calendar to add events from the Royal Oaks</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your location needs to be fetched whenever you are inside Royal Oaks Club</string>
+	<string>Your location needs to be fetched whenever you are inside Royal Oaks Club and we are not sharing to any other people</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is required for finding where you are currently</string>
+	<string>Your location is required for finding where you are currently inside the Royal Oaks Club and we are not sharing to any other people</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
