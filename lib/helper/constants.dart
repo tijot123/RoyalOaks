@@ -30,7 +30,7 @@ void showLocationUpdatesAlert({String message, BuildContext context}) async {
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: Text('OK'),
+              child: Text('Continue'),
             ),
           ],
         );
