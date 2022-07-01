@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/common/common_bg_inner_container.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -54,10 +53,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen> {
                       onLinkTap: (url) {
                         _launchWebUrl(url);
                       },
-                      data: _htmlContent,
-                      style: {
-                        "div": Style(color: Colors.white),
-                      }),
+                      data: _htmlContent),
                 )
               ],
             ),
