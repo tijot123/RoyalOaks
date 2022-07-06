@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           brightness: Brightness.dark,
-          primaryColor: Color.fromRGBO(51, 107, 2, 1),
-          primaryColorDark: Color.fromRGBO(43, 91, 1, 1),
-          accentColor: Color.fromRGBO(104, 159, 56, 1),
+          primaryColor: Color.fromRGBO(42, 42, 42, 1),
+          primaryColorDark: Color.fromRGBO(42, 42, 42, 1),
+          accentColor: Color.fromRGBO(42, 42, 42, 1),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: TextTheme(
             bodyText2: TextStyle(

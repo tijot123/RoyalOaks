@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app/api/api_provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'constants.dart';
 
@@ -80,7 +81,28 @@ class PushNotificationsManager {
     await flutterLocalNotificationsPlugin.show(0, title, msg, platform);
   }
 
-  void _navigateToItemDetail(Map<String, dynamic> message) {}
+  void _launchWeb(String webUrl) async {
+    if (await canLaunch(webUrl)) {
+      await launch(webUrl);
+    } else {
+      throw 'Could not launch $webUrl';
+    }
+  }
+
+  void _navigateToItemDetail(Map<String, dynamic> message) {
+    if (message.isNotEmpty) {
+      var data = message["notification"];
+      String msg = data["body"];
+      String title = data["title"];
+      RegExp exp =
+          new RegExp(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
+      Iterable<RegExpMatch> matches = exp.allMatches(msg);
+      matches.forEach((match) {
+        print(msg.substring(match.start, match.end));
+        _launchWeb(msg.substring(match.start, match.end));
+      });
+    }
+  }
 }
 
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {

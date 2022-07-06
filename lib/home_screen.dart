@@ -10,7 +10,6 @@ import 'package:flutter_app/list_screen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:package_info/package_info.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/login_screen.dart';
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const _gps = "gps";
   static const _courseInfo = "CourseInfo";
   static const _event = "Event";
+  static const _memberWebsite = "MemberWebsite";
   static const _yardGuide = "YardGuide";
   static const _members = "Members";
   static const _orderFood = "OrderFood";
@@ -89,6 +89,30 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  showPopupMenu() {
+    showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(25.0, 25.0, 0.0, 0.0),
+      //position where you want to show the menu on screen
+      items: [
+        PopupMenuItem<String>(child: const Text('menu option 1'), value: '1'),
+        PopupMenuItem<String>(child: const Text('menu option 2'), value: '2'),
+        PopupMenuItem<String>(child: const Text('menu option 3'), value: '3'),
+      ],
+      elevation: 8.0,
+    ).then<void>((String itemSelected) {
+      if (itemSelected == null) return;
+
+      if (itemSelected == "1") {
+        //code here
+      } else if (itemSelected == "2") {
+        //code here
+      } else {
+        //code here
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CommonBackgroundContainer(
@@ -110,7 +134,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               icon: Icon(Icons.exit_to_app),
-            )
+            ),
+            // IconButton(
+            //   onPressed: () {
+            //     showPopupMenu();
+            //   },
+            //   icon: Icon(Icons.more_vert_sharp),
+            // )
           ],
         ),
         body: Builder(
@@ -251,10 +281,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           widthFactor: 2.2,
                           child: InkWell(
                             onTap: () {
-                              _onTap(_event, context: context);
+                              _onTap(_memberWebsite, context: context);
                             },
                             child: Image.asset(
-                              "assets/img/event.png",
+                              "assets/img/member_website.png",
                               height: 70,
                               width: 70,
                             ),
@@ -280,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: Text(
                         "Golf Shop & Tournament Information",
-                        style: TextStyle(color: Colors.green),
+                        style: TextStyle(color: Color.fromRGBO(42, 42, 42, 1)),
                       ),
                     ),
                   ),
@@ -325,6 +355,13 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => EventScreen()));
         break;
+      case _memberWebsite:
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) => FoodOrderScreen(
+                  foodUrl: "https://members.royaloaks.net",
+                  heading: "Member Website",
+                )));
+        break;
       case _yardGuide:
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => YardGuideScreen()));
@@ -353,6 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => FoodOrderScreen(
                           foodUrl: foodUrl,
+                          heading: "Order Food",
                         )));
               } else
                 CommonSnackBar.showSnackBar(

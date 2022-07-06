@@ -7,8 +7,11 @@ import 'common/common_bg_inner_container.dart';
 
 class FoodOrderScreen extends StatefulWidget {
   final foodUrl;
+  final heading;
 
-  const FoodOrderScreen({Key key, @required this.foodUrl}) : super(key: key);
+  const FoodOrderScreen(
+      {Key key, @required this.foodUrl, @required this.heading})
+      : super(key: key);
 
   @override
   _FoodOrderScreenState createState() => _FoodOrderScreenState();
@@ -27,7 +30,7 @@ class _FoodOrderScreenState extends State<FoodOrderScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text("Order Food"),
+            title: Text(widget.heading),
             centerTitle: true,
           ),
           body: Stack(children: [

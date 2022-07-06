@@ -11,7 +11,7 @@ class CommonBackgroundContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/img/bg.png"), fit: BoxFit.cover)),
+              image: AssetImage("assets/img/bg.jpg"), fit: BoxFit.cover)),
       child: child,
     );
   }
