@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _checkLocationPermission();
     _getVersionData();
     if (!widget.isGuest) {
-      PushNotificationsManager().init();
+      PushNotificationsManager().init(context);
       streamSubscription = _location.onLocationChanged.listen((event) {
         var latitude = event.latitude;
         var longitude = event.longitude;
@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Flexible(
                     child: Image.asset(
-                      "assets/img/splash_logo.png",
+                      "assets/img/ball.png",
                       height: 200,
                       width: 200,
                     ),
@@ -390,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => FoodOrderScreen(
                           foodUrl: foodUrl,
-                          heading: "Order Food",
+                          heading: "Dining Reservations",
                         )));
               } else
                 CommonSnackBar.showSnackBar(

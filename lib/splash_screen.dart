@@ -31,10 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.transparent,
       body: Center(
         child: Container(
-          width: size.width / 2,
-          height: size.height / 3,
+          width: size.width / 3,
+          height: size.height / 4,
           child: Image.asset(
-            'assets/img/splash_logo.png',
+            'assets/img/ball.png',
             fit: BoxFit.contain,
           ),
         ),

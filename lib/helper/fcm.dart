@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api_provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,13 +19,13 @@ class PushNotificationsManager {
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  Future<void> init() async {
+  Future<void> init(BuildContext context) async {
     // For iOS request permission first.
     if (Platform.isIOS) _firebaseMessaging.requestNotificationPermissions();
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        _showItemDialog(message);
+        _showItemDialog(message, context);
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
@@ -50,7 +51,8 @@ class PushNotificationsManager {
     });
   }
 
-  void _showItemDialog(Map<String, dynamic> message) async {
+  void _showItemDialog(
+      Map<String, dynamic> message, BuildContext context) async {
     var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     var title = "";
     var msg = "";
@@ -79,6 +81,23 @@ class PushNotificationsManager {
         presentSound: true);
     var platform = new NotificationDetails(android: android, iOS: iOS);
     await flutterLocalNotificationsPlugin.show(0, title, msg, platform);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(message['notification']['title']),
+        content: Text(message['notification']['body']),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              _navigateToItemDetail(message);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   void _launchWeb(String webUrl) async {
@@ -91,9 +110,18 @@ class PushNotificationsManager {
 
   void _navigateToItemDetail(Map<String, dynamic> message) {
     if (message.isNotEmpty) {
-      var data = message["notification"];
-      String msg = data["body"];
-      String title = data["title"];
+      var msg = "";
+      if (message.containsKey("data")) {
+        msg = message["data"]["body"] != null
+            ? message["data"]["body"]
+            : message["notification"]["body"];
+      } else {
+        if (Platform.isIOS) {
+          msg = message["aps"]["alert"]["body"];
+        } else {
+          msg = message["notification"]["body"];
+        }
+      }
       RegExp exp =
           new RegExp(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
       Iterable<RegExpMatch> matches = exp.allMatches(msg);

@@ -36,7 +36,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen> {
             child: Column(
               children: [
                 Image.asset(
-                  "assets/img/splash_logo.png",
+                  "assets/img/ball.png",
                   height: 200,
                 ),
                 Padding(
