@@ -43,8 +43,8 @@ android {
         applicationId "com.app.royal_oaks"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 7
-        versionName "2.1"
+        versionCode 8
+        versionName "2.2"
         multiDexEnabled true
         resConfigs "en"
     }
@@ -70,6 +70,13 @@ android {
     lintOptions {
         disable 'InvalidPackage'
         checkReleaseBuilds false
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def project = "RoyalOaks"
+            outputFileName = "$project-${variant.applicationId}-${variant.versionName}-${variant.versionCode}.apk"
+        }
     }
 }
 
